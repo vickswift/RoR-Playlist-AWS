@@ -31,7 +31,7 @@
   <h4>Add a song:</h4>
   <% if flash[:notice] %>
     <% flash[:notice].each do |notice| %>
-      <p><%= notice %></p>
+      <p style="color:red;"><%= notice %></p>
     <% end %>
   <% end %>
   <form class="form form-horizontal" action="/songs/add" method="post">
