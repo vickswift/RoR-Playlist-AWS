@@ -1,0 +1,23 @@
+<div class="row">
+
+  <a href="/songs">Dashboard</a>
+  <a href="/sessions/logout">LogOut</a>
+  <div class="col-sm-6">
+  <h4>Others who added <%= @song.artist %> - <%= @song.title %></h4>
+  <table class="table table-striped">
+    <thead>
+      <th>Name</th>
+      <th>Times Added</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><a href="/users/<%= user.user.id %>"><%= user.user.first_name %> <%= user.user.last_name %> </td>
+          <td><%= user.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+
+</div>

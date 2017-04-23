@@ -1,0 +1,59 @@
+<h4>Hello, <%= @current_user.first_name %></h4>
+<a href="/sessions/logout">Logout</a>
+
+<div class="row">
+<div class="col-sm-8">
+<h4>All the songs in our hub:</h4>
+<table class="table table-striped">
+  <thead>
+    <th>Artist</th>
+    <th>Title</th>
+    <th>No of Times Song Has Been Added</th>
+    <th>Add to Playlist</th>
+  </thead>
+  <tbody>
+    <% @songs.each do |song| %>
+    <tr>
+      <td><%= song.artist %></td>
+      <td><a href='/songs/show/<%= song.id %>'><%= song.title %></a></td>
+      <td><%= song.lists.sum(:count) %></td>
+      <td><%= button_to "Add", controller:"lists", action:"add", id: song.id %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<br><hr><br>
+
+<div class="col-sm-3">
+  <h4>Add a song:</h4>
+  <% if flash[:notice] %>
+    <% flash[:notice].each do |notice| %>
+      <p><%= notice %></p>
+    <% end %>
+  <% end %>
+  <form class="form form-horizontal" action="/songs/add" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <div class="form-group">
+      <label class="form-label col-sm-3" for="artist">Artist:</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" name="song[artist]" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label col-sm-3" for="title">Title:</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" name="song[title]" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3 col-sm-offset-8">
+        <input class="btn btn-primary" type="submit" name="submit" value="Create">
+      </div>
+    </div>
+  </form>
+</div>
+
+</div>
